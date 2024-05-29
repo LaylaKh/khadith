@@ -25,6 +25,16 @@ class HadithsDataRepository implements HadithRepository{
     return hadithById!;
   }
 
+   @override
+  Future<void> addRemoveFavorite({required int hadithId, required int favoriteState}) {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<List<HadithEntity>> getAllFavoriteHadith() {
+    throw UnimplementedError();
+  }
+
   HadithEntity _entity(HadithModel model){
     return HadithEntity(
       id: model.id,
@@ -32,7 +42,10 @@ class HadithsDataRepository implements HadithRepository{
       hadithTitle: model.hadithTitle, 
       hadithArabic: model.hadithArabic,
       hadithTranslation: model.hadithTranslation, 
-      nameAudio: model.nameAudio
+      nameAudio: model.nameAudio,
+      favoriteState: model.favoriteState,
     );
   }
+  
+ 
 }

@@ -20,12 +20,14 @@ class _MainHadithsListState extends State<MainHadithsList> {
       future: _hadithUseCase.fetchAllHadith(), //передаем список хадисов
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-          return ListView.builder(
-            itemCount: snapshot.data!.lenght,
-            itemBuilder: (context, index){
-              final HadithEntity hadithModel = snapshot.data![index];
-              return HadithItem(hadithModel: hadithModel, index: index);
-          }
+          return Scrollbar(
+            child: ListView.builder(
+              itemCount: snapshot.data!.lenght,
+              itemBuilder: (context, index){
+                final HadithEntity hadithModel = snapshot.data![index];
+                return HadithItem(hadithModel: hadithModel, index: index);
+            }
+            ),
           );
         } else {
           return const Center(

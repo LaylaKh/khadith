@@ -6,6 +6,8 @@ class HadithEntity {
   final String hadithArabic;
   final String hadithTranslation;
   final String nameAudio;
+  final int favoriteState;
+  
   HadithEntity({
     required this.id,
     required this.hadithNumber,
@@ -13,5 +15,6 @@ class HadithEntity {
     required this.hadithArabic,
     required this.hadithTranslation,
     required this.nameAudio,
+    required this.favoriteState
   });
 }
