@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:hadiths/core/routes/route_names.dart';
 import 'package:hadiths/data/model/arguments/hadith_args.dart';
+import 'package:hadiths/data/state/hadith_data_state.dart';
 import 'package:hadiths/domain/entitles/hadith_entity.dart';
+import 'package:provider/provider.dart';
 
 class HadithItem extends StatelessWidget {
   const HadithItem({super.key, required this.hadithModel, required this.index});
@@ -20,9 +22,9 @@ class HadithItem extends StatelessWidget {
       tileColor: index.isOdd ? oddColor : evenColor,
       onTap: () {
         Navigator.pushNamed(
-        context,
-        RouteNames.hadithDetailPage, 
-        arguments: HadithArgs(hadithId: hadithModel.id),
+          context,
+          RouteNames.hadithDetailPage,
+          arguments: HadithArgs(hadithId: hadithModel.id),
         );
       },
       title: Text(
@@ -38,6 +40,16 @@ class HadithItem extends StatelessWidget {
         style: const TextStyle(
           fontSize: 18,
         ),
+      ),
+      leading: IconButton(
+        onPressed: () {
+          Provider.of<HadithDataState>(context, listen: false).fetchAddRemoveFavorite(
+              hadithId: hadithModel.id,
+              favoriteState: hadithModel.favoriteState == 0 ? 1 : 0);
+        },
+        icon: hadithModel.favoriteState == 0
+            ? const Icon(Icons.bookmark_border)
+            : const Icon(Icons.bookmark),
       ),
     );
   }

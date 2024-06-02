@@ -45,4 +45,14 @@ class HadithUseCase {
           'Ошибка при добавлении/удалении  хадиса из избранного:\n\n$e');
     }
   }
+  Future<int> fetchFavoriteState(
+      {required int hadithId,}) async {
+    try {
+      return await _hadithRepository.getFavoriteState(
+          hadithId: hadithId,);
+    } catch (e) {
+      throw Exception(
+          'Ошибка при получении избранного:\n\n$e');
+    }
+  }
 }

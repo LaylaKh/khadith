@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hadiths/core/strings/app_strings.dart';
+import 'package:hadiths/presentation/lists/favorite_hadith_list.dart';
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});
@@ -11,7 +12,7 @@ class FavoritesPage extends StatelessWidget {
         centerTitle: true,
         title: const Text(AppString.favorites),
       ),
-      body: Container(),
+      body: const FavoriteHadithsList(),
     );
   }
 }
