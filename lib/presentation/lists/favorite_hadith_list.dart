@@ -3,6 +3,7 @@ import 'package:hadiths/data/state/hadith_data_state.dart';
 import 'package:hadiths/presentation/items/hadith_item.dart';
 import 'package:provider/provider.dart';
 import '../../domain/entitles/hadith_entity.dart';
+import '../widgets/error_text_data.dart';
 
 class FavoriteHadithsList extends StatelessWidget {
   const FavoriteHadithsList({super.key});
@@ -22,6 +23,8 @@ class FavoriteHadithsList extends StatelessWidget {
             }
             ),
           );
+        } else if (snapshot.hasError) {
+          return ErrorTextData(errorText: snapshot.error.toString());
         } else {
           return const Center(
             child: Text(

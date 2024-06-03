@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 import 'package:flutter/material.dart';
 import 'package:hadiths/core/routes/route_names.dart';
+import 'package:hadiths/core/strings/app_strings.dart';
 import 'package:hadiths/data/model/arguments/hadith_args.dart';
 import 'package:hadiths/data/state/hadith_data_state.dart';
 import 'package:hadiths/domain/entitles/hadith_entity.dart';
@@ -43,11 +44,22 @@ class HadithItem extends StatelessWidget {
       ),
       leading: IconButton(
         onPressed: () {
-          Provider.of<HadithDataState>(context, listen: false).fetchAddRemoveFavorite(
-              hadithId: hadithModel.id,
-              favoriteState: hadithModel.favoriteState == 0 ? 1 : 0);
+          Provider.of<HadithDataState>(context, listen: false)
+              .fetchAddRemoveFavorite(
+                  hadithId: hadithModel.id,
+                  favoriteState: hadithModel.favoriteState == 0 ? 1 : 0);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              duration: const Duration(milliseconds: 350),
+              backgroundColor: appColors.secondary,
+              content: Text(hadithModel.favoriteState == 0
+                  ? AppString.removedFromFavorite
+                  : AppString.addedToFavorite
+              ),
+            ),
+          );
         },
-        icon: hadithModel.favoriteState == 0
+        icon: hadithModel.favoriteState == 1
             ? const Icon(Icons.bookmark_border)
             : const Icon(Icons.bookmark),
       ),
