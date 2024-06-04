@@ -8,4 +8,5 @@ class AppString {
   static const String addedToFavorite = 'Добавлено в избранное';
   static const String removedFromFavorite = 'Удалено из избранного';
   static const String searchByHadith = 'Поиск по хадисам';
+  static const String searchIsEmpty = 'По вашему запросу ничего не найдено';
 }

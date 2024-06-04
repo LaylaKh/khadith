@@ -4,17 +4,17 @@ import 'package:hadiths/presentation/widgets/hadith_search_content.dart';
 
 class HadithSearchDelegate extends SearchDelegate {
   HadithSearchDelegate() : super(searchFieldLabel: AppString.searchByHadith);
-  
+
   @override
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-        appBarTheme: theme.appBarTheme.copyWith(
-          backgroundColor: theme.colorScheme.inversePrimary,
-          titleSpacing: 0,
-         ),
-        inputDecorationTheme: const InputDecorationTheme(
-          border: InputBorder.none,
+      appBarTheme: theme.appBarTheme.copyWith(
+        backgroundColor: theme.colorScheme.inversePrimary,
+        titleSpacing: 0,
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        border: InputBorder.none,
       ),
     );
   }
@@ -52,6 +52,7 @@ class HadithSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return HadithSearchContent(searchQuery: query);
+    return HadithSearchContent(searchQuery: query); // ввозвращаем весь список
+    //return Text('Введите ваш запрос');
   }
 }

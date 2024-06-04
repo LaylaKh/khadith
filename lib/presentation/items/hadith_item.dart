@@ -54,7 +54,9 @@ class HadithItem extends StatelessWidget {
               backgroundColor: appColors.secondary,
               content: Text(hadithModel.favoriteState == 0
                   ? AppString.removedFromFavorite
-                  : AppString.addedToFavorite
+                  : AppString.addedToFavorite,
+                  style: const TextStyle(fontSize: 18
+                )
               ),
             ),
           );
