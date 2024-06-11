@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hadiths/core/strings/app_strings.dart';
 import 'package:hadiths/core/style/app_styles.dart';
 import 'package:hadiths/domain/entitles/hadith_entity.dart';
+import 'package:hadiths/presentation/state/settings_state.dart';
 import 'package:hadiths/presentation/widgets/html_text_data.dart';
 import '../../data/state/hadith_data_state.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,8 @@ class HadithDetail extends StatelessWidget {
   // final HadithUseCase _hadithUseCase = HadithUseCase(HadithsDataRepository());
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<SettingsState>(context);
+
     return FutureBuilder<HadithEntity>(
       future: Provider.of<HadithDataState>(context)
           .fetchHadithById(hadithId: hadithId),
@@ -28,48 +31,50 @@ class HadithDetail extends StatelessWidget {
 
           return SelectableRegion(
             focusNode: FocusNode(),
-            selectionControls: Platform.isAndroid ? MaterialTextSelectionControls() : CupertinoTextSelectionControls(),
+            selectionControls: Platform.isAndroid
+                ? MaterialTextSelectionControls()
+                : CupertinoTextSelectionControls(),
             child: Scaffold(
               appBar: AppBar(
                 title: Text(hadithModel.hadithNumber),
                 actions: [
                   FutureBuilder<int>(
-                      future: Provider.of<HadithDataState>(context)
-                          .fetchFavoriteState(hadithId: hadithModel.id),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          // ignore: unused_local_variable
-                          final int favoriteState = snapshot.data!;
-                          return IconButton(
-                            onPressed: () {
-                              Provider.of<HadithDataState>(context, listen: false)
-                                  .fetchAddRemoveFavorite(
-                                      hadithId: hadithModel.id,
-                                      favoriteState:
-                                          hadithModel.favoriteState == 0 ? 1 : 0);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  duration: const Duration(milliseconds: 350),
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.secondary,
-                                  content: Text(hadithModel.favoriteState == 0
+                    future: Provider.of<HadithDataState>(context)
+                        .fetchFavoriteState(hadithId: hadithModel.id),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        // ignore: unused_local_variable
+                        final int favoriteState = snapshot.data!;
+                        return IconButton(
+                          onPressed: () {
+                            Provider.of<HadithDataState>(context, listen: false)
+                                .fetchAddRemoveFavorite(
+                                    hadithId: hadithModel.id,
+                                    favoriteState:
+                                        hadithModel.favoriteState == 0 ? 1 : 0);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: const Duration(milliseconds: 350),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.secondary,
+                                content: Text(
+                                  hadithModel.favoriteState == 0
                                       ? AppString.removedFromFavorite
                                       : AppString.addedToFavorite,
-                                      style: const TextStyle(fontSize: 18
-                                    ),
-                                  ),
+                                  style: const TextStyle(fontSize: 18),
                                 ),
-                              );
-                            },
-                            icon: snapshot.data! == 0
-                                ? const Icon(Icons.bookmark_border)
-                                : const Icon(Icons.bookmark),
-                          );
-                        } else {
-                          return const SizedBox();
-                        }
-                      },
-                    ),
+                              ),
+                            );
+                          },
+                          icon: snapshot.data! == 0
+                              ? const Icon(Icons.bookmark_border)
+                              : const Icon(Icons.bookmark),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
+                  ),
                 ],
               ),
               body: Scrollbar(
@@ -90,12 +95,12 @@ class HadithDetail extends StatelessWidget {
                       ),
                       HtmlTextData(
                           textData: hadithModel.hadithArabic,
-                          fontSize: 18.0,
+                          fontSize: AppStyles.textSizes[settings.getTextSize],
                           fontFamily: 'Uthmanic',
                           textDirection: TextDirection.rtl),
                       HtmlTextData(
                           textData: hadithModel.hadithTranslation,
-                          fontSize: 18.0,
+                          fontSize: AppStyles.textSizes[settings.getTextSize],
                           fontFamily: 'Heuristica',
                           textDirection: TextDirection.ltr),
                     ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hadiths/core/routes/route_names.dart';
 import 'package:hadiths/core/strings/app_strings.dart';
 import 'package:hadiths/presentation/pages/favorites.page.dart';
 import 'package:hadiths/presentation/pages/hadith_page.dart';
@@ -64,6 +65,13 @@ class _MainPageState extends State<MainPage> {
         onTap: (int index) {
           mainBottomBarState.setIndex = index;
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: appColors.inversePrimary,
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Navigator.pushNamed(context, RouteNames.addHadithPage);
+        }
       ),
     );
   }

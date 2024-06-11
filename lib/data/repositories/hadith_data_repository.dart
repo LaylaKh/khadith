@@ -60,6 +60,26 @@ class HadithsDataRepository implements HadithRepository {
     return favoriteState;
   }
 
+  @override
+  Future<void> addHadith({required Map<String, dynamic> mapHadith}) async {
+    final Database database = await _databaseService.db;
+    await database.insert(_tableName, mapHadith);
+  }
+
+  @override
+  Future<void> changeHadith(
+      {required int hadithId, required Map<String, dynamic> mapHadith}) async {
+    final Database database = await _databaseService.db;
+    await database.update(_tableName, mapHadith, where: 'id = $hadithId');
+  }
+
+  @override
+  Future<void> removedHadith({required int hadithId}) async {
+    final Database database = await _databaseService.db;
+    await database.delete(_tableName, where: 'id = $hadithId');
+
+  }
+
   HadithEntity _entity(HadithModel model) {
     return HadithEntity(
       id: model.id,
