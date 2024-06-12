@@ -30,4 +30,20 @@ class HadithDataState extends ChangeNotifier {
         await _hadithUseCase.fetchFavoriteState(hadithId: hadithId);
     return favoriteState;
   }
+
+  Future<void> addHadith({required Map<String, Object?> mapHadith}) async {
+    _hadithUseCase.fetchAddHadith(mapHadith: mapHadith);
+    notifyListeners();
+  }
+
+  Future<void> changeHadith(
+      {required int hadithId, required Map<String, Object?> mapHadith}) async {
+    _hadithUseCase.fetchChangeHadith(hadithId: hadithId, mapHadith: mapHadith);
+    notifyListeners();
+  }
+
+  Future<void> removedHadith({required int hadithId}) async {
+    _hadithUseCase.fetchRemoveHadith(hadithId: hadithId);
+    notifyListeners();
+  }
 }

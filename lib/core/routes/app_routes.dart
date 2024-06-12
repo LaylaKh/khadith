@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hadiths/data/model/arguments/hadith_args.dart';
+import 'package:hadiths/data/model/arguments/hadith_model_args.dart';
 import 'package:hadiths/presentation/pages/add_hadith_page.dart';
+import 'package:hadiths/presentation/pages/change_hadith_page.dart';
 import '../../presentation/pages/hadith_detail.dart';
 import 'route_names.dart';
 
@@ -10,15 +12,23 @@ class AppRoutes {
       case RouteNames.hadithDetailPage:
         final HadithArgs hadithArgs = routeSettings.arguments as HadithArgs;
         return MaterialPageRoute(
-          builder: (_) =>  HadithDetail(hadithId: hadithArgs.hadithId,
+          builder: (_) => HadithDetail(
+            hadithId: hadithArgs.hadithId,
           ),
         );
 
-        case RouteNames.addHadithPage:
+      case RouteNames.addHadithPage:
         return MaterialPageRoute(
-          builder: (_) =>  const AddHadithPage(
-          ),
+          builder: (_) => const AddHadithPage(),
         );
+
+      case RouteNames.changeHadithPage:
+        final HadithModelArgs hadithModelArgs =
+            routeSettings.arguments as HadithModelArgs;
+        return MaterialPageRoute(
+          builder: (_) => ChangeHadithPage(hadithModel: hadithModelArgs.hadithModel),
+        );
+
       default:
         throw Exception('Invalid route\n${routeSettings.name}');
     }

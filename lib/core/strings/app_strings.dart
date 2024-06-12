@@ -29,6 +29,11 @@ class AppString {
 
   static const String addHadith = 'Добавление хадиса';
   static const String add = 'Добавить';
+  static const String added = 'Добавлено';
+  static const String change = 'Изменить';
+  static const String changed = 'Изменен';
+  static const String remove = 'Удалить';
+  static const String removed = 'Удален';
   static const String enterNumberHadith = 'Введите название хадиса';
   static const String enterTitleHadith = 'Введите название хадиса';
   static const String enterArabicHadith = 'Введите арабский текст';

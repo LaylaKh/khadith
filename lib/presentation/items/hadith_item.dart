@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:hadiths/core/routes/route_names.dart';
 import 'package:hadiths/core/strings/app_strings.dart';
+import 'package:hadiths/core/style/app_styles.dart';
 import 'package:hadiths/data/model/arguments/hadith_args.dart';
 import 'package:hadiths/data/state/hadith_data_state.dart';
 import 'package:hadiths/domain/entitles/hadith_entity.dart';
@@ -28,6 +29,44 @@ class HadithItem extends StatelessWidget {
           arguments: HadithArgs(hadithId: hadithModel.id),
         );
       },
+      onLongPress: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (_) => Padding(
+            padding: AppStyles.mainPadding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, RouteNames.changeHadithPage,
+                        arguments: hadithModel);
+                  },
+                  child: const Text(AppString.change),
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Provider.of<HadithDataState>(context, listen: false)
+                        .removedHadith(hadithId: hadithModel.id);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        duration: const Duration(milliseconds: 350),
+                        backgroundColor: appColors.secondary,
+                        content: const Text(AppString.removed,
+                            style: TextStyle(fontSize: 18)),
+                      ),
+                    );
+                  },
+                  child: const Text(AppString.remove),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
       title: Text(
         hadithModel.hadithNumber,
         style: TextStyle(
@@ -52,12 +91,11 @@ class HadithItem extends StatelessWidget {
             SnackBar(
               duration: const Duration(milliseconds: 350),
               backgroundColor: appColors.secondary,
-              content: Text(hadithModel.favoriteState == 0
-                  ? AppString.removedFromFavorite
-                  : AppString.addedToFavorite,
-                  style: const TextStyle(fontSize: 18
-                )
-              ),
+              content: Text(
+                  hadithModel.favoriteState == 0
+                      ? AppString.removedFromFavorite
+                      : AppString.addedToFavorite,
+                  style: const TextStyle(fontSize: 18)),
             ),
           );
         },
